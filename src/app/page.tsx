@@ -15,17 +15,17 @@ export default function Home() {
     event.preventDefault();
     console.log("Submitted username:", username);
     // You can now use the username value as needed
-    // try {
-    //   const response = await fetch(`https://api.github.com/users/${username}`);
-    //   if (!response.ok) {
-    //     throw new Error("Network response was not ok");
-    //   }
-    //   const data = await response.json();
-    //   console.log("GitHub user data:", data);
-    //   setUserData(data);
-    // } catch (error) {
-    //   console.error("There was a problem with the fetch operation:", error);
-    // }
+    try {
+      const response = await fetch(`https://api.github.com/users/${username}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log("GitHub user data:", data);
+      setUserData(data);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   };
 
   return (
