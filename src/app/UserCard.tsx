@@ -1,22 +1,32 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { toPng } from 'html-to-image';
 import { FaGithub, FaShareAlt, FaUserFriends, FaUserPlus, FaCodeBranch } from 'react-icons/fa';
 
 interface UserCardProps {
-	userData: any;
+	userData: {
+		avatar_url: string;
+		login: string;
+		name: string;
+		bio: string;
+		created_at: string;
+		followers: number;
+		following: number;
+		public_repos: number;
+		html_url: string;
+	};
 	formData: {
 		username: string;
 		isShowFollowers: boolean;
 		isBio: boolean;
-		showContributions: boolean;
 		showPRs: boolean;
 	}
 }
 
 const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 	const cardRef = useRef<HTMLDivElement>(null);
-	const { username, isShowFollowers, isBio, showContributions, showPRs } = formData;
+	const { username, isShowFollowers, isBio, showPRs } = formData;
 	const [prData, setPrData] = React.useState<{ id: number; title: string; html_url: string; created_at: string, state: string }[]>([]);
 
 
@@ -34,28 +44,22 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 		}
 	};
 
-	const fetchPrs = async () => {
-		try {
-			const response = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr`);
-			const data = await response.json();
-			setPrData(data.items);
-		} catch (error) {
-			console.error("Error fetching PRs:", error);
-		}
-	};
 
-	useEffect(() => {
-		if (formData.showPRs) {
-			fetchPrs();
-		}
-	}, []);
 
 
 	useEffect(() => {
-		if (formData.showPRs) {
-			fetchPrs();
-		}
-	}, [formData.showPRs]);
+		const fetchPrs = async () => {
+			if (!formData.showPRs || !username) return;
+			try {
+				const response = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr`);
+				const data = await response.json();
+				setPrData(data.items);
+			} catch (error) {
+				console.error("Error fetching PRs:", error);
+			}
+		};
+		fetchPrs();
+	}, [formData.showPRs, username]);
 
 
 	const formatDate = (dateString: string) => {
@@ -71,7 +75,8 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 					<div className="bg-white p-3 shadow-lg rounded-lg" ref={cardRef}>
 						{/* header */}
 						<div className="flex gap-3 w-full items-center mx-3 my-6">
-							<img src={userData.avatar_url} alt={`${userData.login}'s avatar`} className="w-20 h-20 rounded-full" />
+							<Image src={userData.avatar_url} alt={`${userData.login}'s avatar`} width={80} height={80} className="w-20 h-20 rounded-full" />
+							{/* <img src={userData.avatar_url} alt={`${userData.login}'s avatar`} className="w-20 h-20 rounded-full" /> */}
 							<div>
 								<h2 className="text-xl font-bold">{username}</h2>
 								<p className="text-gray-500">@{userData.name}</p>
