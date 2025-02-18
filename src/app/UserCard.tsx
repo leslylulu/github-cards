@@ -5,7 +5,7 @@ import { toPng } from 'html-to-image';
 import { FaGithub, FaShareAlt, FaUserFriends, FaUserPlus, FaCodeBranch } from 'react-icons/fa';
 
 interface UserCardProps {
-	userData: {
+	userData?: {
 		avatar_url: string;
 		login: string;
 		name: string;
@@ -71,15 +71,15 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 	return (
 		<>
 			{
-				userData && userData.avatar_url ? <div className="w-full">
+				userData && userData?.avatar_url ? <div className="w-full">
 					<div className="bg-white p-3 shadow-lg rounded-lg" ref={cardRef}>
 						{/* header */}
 						<div className="flex gap-3 w-full items-center mx-3 my-6">
-							<Image src={userData.avatar_url} alt={`${userData.login}'s avatar`} width={80} height={80} className="w-20 h-20 rounded-full" />
+							<Image src={userData?.avatar_url} alt={`${userData?.login}'s avatar`} width={80} height={80} className="w-20 h-20 rounded-full" />
 							{/* <img src={userData.avatar_url} alt={`${userData.login}'s avatar`} className="w-20 h-20 rounded-full" /> */}
 							<div>
 								<h2 className="text-xl font-bold">{username}</h2>
-								<p className="text-gray-500">@{userData.name}</p>
+								<p className="text-gray-500">@{userData?.name}</p>
 								{
 									isBio && <p>{userData.bio}</p>
 								}
@@ -151,7 +151,7 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 
 
 					<div className="flex gap-4 mt-4 items-center justify-center">
-						<a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+						<a href={userData?.html_url} target="_blank" rel="noopener noreferrer">
 							View Profile
 						</a>
 

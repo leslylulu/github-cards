@@ -12,7 +12,7 @@ export default function Home() {
     showContributions: true,
     showPRs: false
   });
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(undefined);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
