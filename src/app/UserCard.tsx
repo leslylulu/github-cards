@@ -298,19 +298,18 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 							</ul>
 						</div>
 					)}
-				
-					<div className="flex gap-3 sm:gap-4 mt-3 sm:mt-4 items-center justify-center">
-						<a href={userData?.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-sm sm:text-base">
-							View Profile
-						</a>
-						<button
-							onClick={handleDownloadImage}
-							className={`px-3 sm:px-4 py-1.5 sm:py-2 ${theme.button} text-white rounded-md text-sm sm:text-base`}
-						>
-							Download as Image
-						</button>
-					</div>
         </div>
+				<div className="flex gap-3 sm:gap-4 mt-3 sm:mt-4 items-center justify-center">
+					<a href={userData?.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-sm sm:text-base">
+						View Profile
+					</a>
+					<button
+						onClick={handleDownloadImage}
+						className={`px-3 sm:px-4 py-1.5 sm:py-2 ${theme.button} text-white rounded-md text-sm sm:text-base`}
+					>
+						Download as Image
+					</button>
+				</div>
       </div>
     );
   };

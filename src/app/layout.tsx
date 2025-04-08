@@ -27,10 +27,22 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og-image.png", // 创建一个 open graph 图片并放在 public 目录
-        width: 1200,
-        height: 630,
+        width: 2260,
+        height: 1706,
         alt: "GitHub Cards Preview",
       },
+      {
+        url: "/og-terminal-layout.png", // 展示终端布局的图片
+        width: 902,
+        height: 847,
+        alt: "GitHub Cards Terminal Layout",
+      },
+      {
+        url: "/og-receipt-layout.png", // 展示收据布局的图片
+        width: 478,
+        height: 813,
+        alt: "GitHub Cards Receipt Layout",
+      }
     ],
     locale: "en_US",
     type: "website",
