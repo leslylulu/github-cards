@@ -181,92 +181,92 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
     return (
       <div className="w-full">
         <div className={`${theme.cardBg} p-3 shadow-lg rounded-lg ${theme.text} ${theme.border} border`} ref={cardRef}>
-          <div className="flex gap-3 w-full items-center mx-3 my-6">
-						{userData?.avatar_url ? (
-							<Image
-								src={userData.avatar_url}
-								alt={`${username}'s avatar`}
-								width={80}
-								height={80}
-								className="w-20 h-20 rounded-full"
-							/>
-						) : (
-							<div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-								<FaUser className="text-4xl" />
+
+				<div className="flex flex-col sm:flex-row gap-3 w-full items-center sm:items-start mx-3 my-4 sm:my-6">
+					{userData?.avatar_url ? (
+						<Image
+							src={userData.avatar_url}
+							alt={`${username}'s avatar`}
+							width={80}
+							height={80}
+							className="w-16 h-16 sm:w-20 sm:h-20 rounded-full"
+						/>
+					) : (
+						<div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+							<FaUser className="text-3xl sm:text-4xl" />
+						</div>
+					)}
+					<div className="text-center sm:text-left">
+						<h2 className="text-xl font-bold">{username}</h2>
+						<p className={theme.secondary}>@{userData?.name}</p>
+						{isBio && <p className="text-sm sm:text-base max-w-xs">{userData?.bio}</p>}
+						<p className={`${theme.secondary} text-sm`}>Created: {formatDate(userData?.created_at)}</p>
+					</div>
+				</div>
+				
+					<div className="m-3 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
+						{isShowFollowers && (
+							<div className={`flex gap-2 sm:gap-3 items-center bg-lime-200/45 rounded-lg p-2 sm:p-3 ${formData.colorTheme === 'dark' ? 'bg-lime-900/45' : ''}`}>
+								<FaUserFriends className="text-xl sm:text-2xl" />
+								<div className="flex-col">
+									<p className="font-extrabold text-base sm:text-lg">{userData?.followers}</p>
+									<p className={`${theme.text} text-sm`}>Followers</p>
+								</div>
 							</div>
 						)}
-            <div>
-              <h2 className="text-xl font-bold">{username}</h2>
-              <p className={theme.secondary}>@{userData?.name}</p>
-              {isBio && <p>{userData?.bio}</p>}
-              <p className={theme.secondary}>Created: {formatDate(userData?.created_at)}</p>
-            </div>
-          </div>
+						{isShowFollowers && (
+							<div className={`flex gap-2 sm:gap-3 items-center bg-yellow-200/40 rounded-lg p-2 sm:p-3 ${formData.colorTheme === 'dark' ? 'bg-yellow-900/40' : ''}`}>
+								<FaUserPlus className="text-xl sm:text-2xl" />
+								<div className="flex-col">
+									<p className="font-extrabold text-base sm:text-lg">{userData?.following}</p>
+									<p className={`${theme.text} text-sm`}>Following</p>
+								</div>
+							</div>
+						)}
+						{isShowFollowers && (
+							<div className={`flex gap-2 sm:gap-3 items-center bg-purple-500/40 rounded-lg p-2 sm:p-3 ${formData.colorTheme === 'dark' ? 'bg-purple-900/40' : ''}`}>
+								<FaCodeBranch className="text-xl sm:text-2xl" />
+								<div className="flex-col">
+									<p className="font-extrabold text-base sm:text-lg">{userData?.public_repos}</p>
+									<p className={`${theme.text} text-sm`}>Public Repos</p>
+								</div>
+							</div>
+						)}
+					</div>
 
-          <div className="m-3 grid grid-cols-3 gap-4">
-            {isShowFollowers && (
-              <div className={`flex gap-3 items-center bg-lime-200/45 rounded-lg p-3 ${formData.colorTheme === 'dark' ? 'bg-lime-900/45' : ''}`}>
-                <FaUserFriends className="text-2xl" />
-                <div className="flex-col">
-                  <p className="font-extrabold text-lg">{userData?.followers}</p>
-                  <p className={theme.text}>Followers</p>
-                </div>
-              </div>
-            )}
-            {isShowFollowers && (
-              <div className={`flex gap-3 items-center bg-yellow-200/40 rounded-lg p-3 ${formData.colorTheme === 'dark' ? 'bg-yellow-900/40' : ''}`}>
-                <FaUserPlus className="text-2xl" />
-                <div className="flex-col">
-                  <p className="font-extrabold text-lg">{userData?.following}</p>
-                  <p className={theme.text}>Following</p>
-                </div>
-              </div>
-            )}
-            {isShowFollowers && (
-              <div className={`flex gap-3 items-center bg-purple-500/40 rounded-lg p-3 ${formData.colorTheme === 'dark' ? 'bg-purple-900/40' : ''}`}>
-                <FaCodeBranch className="text-2xl" />
-                <div className="flex-col">
-                  <p className="font-extrabold text-lg">{userData?.public_repos}</p>
-                  <p className={theme.text}>Public Repos</p>
-                </div>
-              </div>
-            )}
-          </div>
 
 					{formData.showLanguages && Object.keys(languages).length > 0 && (
-						<div className="mt-4 px-3">
-							<h3 className="text-lg font-bold">Languages</h3>
-							<div className="flex flex-wrap gap-2 mt-2">
+						<div className="mt-3 sm:mt-4 px-3">
+							<h3 className="text-base sm:text-lg font-bold">Languages</h3>
+							<div className="flex flex-wrap gap-1 sm:gap-2 mt-1 sm:mt-2">
 								{Object.entries(languages).map(([language, count]) => (
-									<span key={language} className={`text-sm px-2 py-1 rounded ${formData.colorTheme === 'dark' ? 'bg-gray-600' : 'bg-gray-200'}`}>
+									<span key={language} className={`text-xs sm:text-sm px-1.5 sm:px-2 py-0.5 sm:py-1 rounded ${formData.colorTheme === 'dark' ? 'bg-gray-600' : 'bg-gray-200'}`}>
 										{language} ({count})
 									</span>
 								))}
 							</div>
 						</div>
 					)}
-				
-			
 					{formData.showTopRepos && topRepos.length > 0 && (
-						<div className="mt-4 px-3">
-							<h3 className="text-lg font-bold mb-3">Top Repositories</h3>
-							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+						<div className="mt-3 sm:mt-4 px-3">
+							<h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-3">Top Repositories</h3>
+							<div className="grid grid-cols-1 gap-2 sm:gap-3">
 								{topRepos.map(repo => (
-									<div 
-										key={repo.id} 
-										className={`p-3 rounded-lg shadow-sm border ${theme.border} hover:shadow-md transition-shadow`}
+									<div
+										key={repo.id}
+										className={`p-2 sm:p-3 rounded-lg shadow-sm border ${theme.border} hover:shadow-md transition-shadow`}
 									>
-										<div className="flex justify-between items-start mb-2">
-											<a href={repo.html_url} target="_blank" rel="noopener noreferrer" className={`text-${theme.highlight} hover:underline font-medium truncate max-w-[80%]`}>
+										<div className="flex justify-between items-start mb-1 sm:mb-2">
+											<a href={repo.html_url} target="_blank" rel="noopener noreferrer" className={`text-${theme.highlight} hover:underline font-medium truncate max-w-[80%] text-sm sm:text-base`}>
 												{repo.name}
 											</a>
 											<div className="flex items-center">
 												<FaStar className="text-yellow-500 mr-1" />
-												<span className="text-sm">{repo.stargazers_count}</span>
+												<span className="text-xs sm:text-sm">{repo.stargazers_count}</span>
 											</div>
 										</div>
 										{repo.language && (
-											<span className={`inline-block text-xs px-2 py-1 rounded ${formData.colorTheme === 'dark' ? 'bg-gray-600' : 'bg-gray-200'}`}>
+											<span className={`inline-block text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded ${formData.colorTheme === 'dark' ? 'bg-gray-600' : 'bg-gray-200'}`}>
 												{repo.language}
 											</span>
 										)}
@@ -275,43 +275,41 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 							</div>
 						</div>
 					)}
-         
-          
-          
-          {/* Show PRs */}
-          {showPRs && prData?.length > 0 && (
-            <div className="mt-4 px-3">
-              <h3 className="text-lg font-bold">Pull Requests</h3>
-              <ul className="mt-3">
-								{prData.slice(0, formData.prCount).map(pr => ( 
-                  <li key={pr.id} className="mb-2 flex justify-between">
-                    <a href={pr.html_url} target="_blank" rel="noopener noreferrer" className={`text-${theme.highlight} hover:underline`}>
-                      <span className={`font-bold uppercase mr-3 ${pr.state === 'open' ? 'text-purple-600' : 'text-green-800'}`}>{pr.state}</span>
-                      {pr.title}
-                    </a>
-                    <p className={theme.secondary}>
-                      {formatDate(pr.created_at)}
-                    </p>
-                  </li>
-                ))}
-								{prData.length > formData.prCount && (
-									<li className="text-center text-sm text-gray-500">...and {prData.length - formData.prCount} more</li>
-								)}
-              </ul>
-            </div>
-          )}
-        </div>
 
-        <div className="flex gap-4 mt-4 items-center justify-center">
-          <a href={userData?.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-            View Profile
-          </a>
-          <button
-            onClick={handleDownloadImage}
-            className={`px-4 py-2 ${theme.button} text-white rounded-md`}
-          >
-            Download as Image
-          </button>
+				
+					{showPRs && prData?.length > 0 && (
+						<div className="mt-3 sm:mt-4 px-3">
+							<h3 className="text-base sm:text-lg font-bold">Pull Requests</h3>
+							<ul className="mt-2 sm:mt-3 text-sm">
+								{prData.slice(0, formData.prCount).map(pr => (
+									<li key={pr.id} className="mb-1.5 sm:mb-2 flex flex-col sm:flex-row sm:justify-between">
+										<a href={pr.html_url} target="_blank" rel="noopener noreferrer" className={`text-${theme.highlight} hover:underline truncate max-w-full sm:max-w-[70%]`}>
+											<span className={`font-bold uppercase mr-2 ${pr.state === 'open' ? 'text-purple-600' : 'text-green-800'}`}>{pr.state}</span>
+											{pr.title}
+										</a>
+										<p className={`${theme.secondary} text-xs sm:text-sm mt-0.5 sm:mt-0`}>
+											{formatDate(pr.created_at)}
+										</p>
+									</li>
+								))}
+								{prData.length > formData.prCount && (
+									<li className="text-center text-xs sm:text-sm text-gray-500">...and {prData.length - formData.prCount} more</li>
+								)}
+							</ul>
+						</div>
+					)}
+				
+					<div className="flex gap-3 sm:gap-4 mt-3 sm:mt-4 items-center justify-center">
+						<a href={userData?.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-sm sm:text-base">
+							View Profile
+						</a>
+						<button
+							onClick={handleDownloadImage}
+							className={`px-3 sm:px-4 py-1.5 sm:py-2 ${theme.button} text-white rounded-md text-sm sm:text-base`}
+						>
+							Download as Image
+						</button>
+					</div>
         </div>
       </div>
     );
@@ -321,10 +319,10 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 	const renderReceiptLayout = () => {
 		return (
 			<div className="w-full max-w-md mx-auto font-mono">
-				<div className={`${theme.cardBg} border ${theme.border} p-4 shadow-md ${theme.text}`} ref={cardRef}>
+				<div className={`${theme.cardBg} border ${theme.border} p-3 sm:p-4 shadow-md ${theme.text} text-sm`} ref={cardRef}>
 					<div className="text-center border-b-2 border-dashed border-gray-300 pb-2 mb-2">
 						<FaGithub className="mx-auto text-3xl mb-2" />
-						<h2 className="uppercase tracking-widest text-base">GitHub Receipt</h2>
+						<h2 className="uppercase tracking-widest text-sm sm:text-base">GitHub Receipt</h2>
 						<p className="text-xs text-gray-500">{new Date().toLocaleDateString()}</p>
 					</div>
 					
@@ -401,7 +399,7 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 							))}
 						</div>
 					)}
-					
+
 					{showPRs && prData?.length > 0 && (
 						<div className="border-t border-dashed border-gray-300 pt-2 mb-2">
 							<div className="flex justify-between mb-1">
@@ -421,10 +419,6 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 							)}
 						</div>
 					)}
-
-					
-				
-					
 					<div className="border-t border-dashed border-gray-300 pt-2 text-center">
 						<p className="text-xs uppercase tracking-wider mb-1">Thank you for using GitHub</p>
 						<a href={userData?.html_url} className="text-xs text-gray-500 hover:underline">github.com/{userData?.login}</a>
@@ -443,7 +437,6 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 		);
 	};
 
-		// Terminal Layout with reduced vertical spacing
 	const renderTerminalLayout = () => {
 		return (
 			<div className="w-full max-w-lg mx-auto">
@@ -457,9 +450,9 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 						<p className="ml-3 text-green-300 text-xs">github-profile.sh</p>
 					</div>
 					
-					<div className="space-y-1.5">
-						<p><span className="text-purple-400">$</span> git user <span className="text-yellow-300">--info</span> {userData?.login}</p>
-						<div className="ml-3 mb-1.5">
+					<div className="space-y-1 sm:space-y-1.5 overflow-x-auto">
+						<p className="whitespace-nowrap"><span className="text-purple-400">$</span> git user <span className="text-yellow-300">--info</span> {userData?.login}</p>
+						<div className="ml-2 sm:ml-3 mb-1 sm:mb-1.5">
 							<p><span className="text-blue-400">name:</span> {userData?.name || 'N/A'}</p>
 							<p><span className="text-blue-400">username:</span> {userData?.login}</p>
 							{isBio && <p className="line-clamp-2"><span className="text-blue-400">bio:</span> {userData?.bio || 'N/A'}</p>}
@@ -468,8 +461,8 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 						
 						{isShowFollowers && (
 							<>
-								<p><span className="text-purple-400">$</span> git stats <span className="text-yellow-300">--summary</span></p>
-								<div className="ml-3 mb-1.5 grid grid-cols-3">
+								<p className="whitespace-nowrap"><span className="text-purple-400">$</span> git stats <span className="text-yellow-300">--summary</span></p>
+								<div className="ml-2 sm:ml-3 mb-1 sm:mb-1.5 grid grid-cols-1 sm:grid-cols-3 gap-0.5 sm:gap-1">
 									<p><span className="text-blue-400">repos:</span> {userData?.public_repos}</p>
 									<p><span className="text-blue-400">followers:</span> {userData?.followers}</p>
 									<p><span className="text-blue-400">following:</span> {userData?.following}</p>
@@ -479,26 +472,29 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 
 						{formData.showLanguages && Object.keys(languages).length > 0 && (
 							<>
-								<p><span className="text-purple-400">$</span> git lang <span className="text-yellow-300">--count</span></p>
-								<div className="ml-3 mb-1.5">
-									<div className="grid grid-cols-2 md:grid-cols-3 gap-x-3">
-										{Object.entries(languages).map(([language, count]) => (
-											<p key={language} className="text-sm">
+								<p className="whitespace-nowrap"><span className="text-purple-400">$</span> git lang <span className="text-yellow-300">--count</span></p>
+								<div className="ml-2 sm:ml-3 mb-1 sm:mb-1.5">
+									<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3">
+										{Object.entries(languages).slice(0, 6).map(([language, count]) => (
+											<p key={language} className="text-xs sm:text-sm truncate">
 												<span className="text-blue-400">{language}:</span> {count}
 											</p>
 										))}
 									</div>
+									{Object.keys(languages).length > 6 && (
+										<p className="text-xs text-gray-500">...and {Object.keys(languages).length - 6} more languages</p>
+									)}
 								</div>
 							</>
 						)}
 						
 						{formData.showTopRepos && topRepos.length > 0 && (
 							<>
-								<p><span className="text-purple-400">$</span> git repo <span className="text-yellow-300">--list --sort=stars</span></p>
-								<div className="ml-3 mb-1.5">
-									<div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+								<p className="whitespace-nowrap"><span className="text-purple-400">$</span> git repo <span className="text-yellow-300">--list --sort=stars</span></p>
+								<div className="ml-2 sm:ml-3 mb-1 sm:mb-1.5">
+									<div className="grid grid-cols-1 gap-0.5">
 										{topRepos.slice(0, formData.repoCount).map(repo => (
-											<p key={repo.id} className="text-sm truncate">
+											<p key={repo.id} className="text-xs sm:text-sm truncate">
 												<span className="text-blue-400">{repo.name}</span>{repo.language ? ` [${repo.language}]` : ''} <span className="text-yellow-400 ml-1">★{repo.stargazers_count}</span>
 											</p>
 										))}
@@ -529,13 +525,13 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 					</div>
 				</div>
 				
-				<div className="flex gap-4 mt-4 items-center justify-center">
-					<a href={userData?.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+				<div className="flex gap-3 sm:gap-4 mt-3 sm:mt-4 items-center justify-center">
+					<a href={userData?.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xs sm:text-sm">
 						<span className="text-purple-500">$</span> View Profile
 					</a>
 					<button
 						onClick={handleDownloadImage}
-						className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+						className="px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-xs sm:text-sm"
 					>
 						Download Terminal
 					</button>
