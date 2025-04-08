@@ -120,6 +120,36 @@ export default function Home() {
               </label>
             </div>
 
+            <div className="w-full my-4 flex items-center justify-between">
+              <span className="text-gray-900">Show Top Repositories</span>
+              <label className="inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  onChange={(event) => setFormData({ ...formData, showTopRepos: event.target.checked })}
+                  className="sr-only peer"
+                  checked={formData.showTopRepos}
+                />
+                <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+              </label>
+            </div>
+
+            {formData.showTopRepos && (
+              <div className="mb-4">
+                <label htmlFor="repoCount" className="block mb-2 text-sm font-medium text-gray-900">
+                  Number of repositories to show
+                </label>
+                <select
+                  id="repoCount"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  value={formData.repoCount}
+                  onChange={(e) => setFormData({ ...formData, repoCount: parseInt(e.target.value) })}
+                >
+                  <option value="1">1</option>
+                  <option value="3">3</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            )}
 
             <div className="w-full my-4 flex items-center justify-between">
               <span className="text-gray-900 dark:text-gray-300">Show PRs</span>
@@ -167,39 +197,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="font-bold text-black mt-6">Repository Options</div>
-            <div className="bg-slate-300/40 p-3 rounded-md">
-              <div className="w-full my-4 flex items-center justify-between">
-                <span className="text-gray-900">Show Top Repositories</span>
-                <label className="inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    onChange={(event) => setFormData({ ...formData, showTopRepos: event.target.checked })}
-                    className="sr-only peer"
-                    checked={formData.showTopRepos}
-                  />
-                  <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                </label>
-              </div>
-
-              {formData.showTopRepos && (
-                <div className="mb-4">
-                  <label htmlFor="repoCount" className="block mb-2 text-sm font-medium text-gray-900">
-                    Number of repositories to show
-                  </label>
-                  <select
-                    id="repoCount"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    value={formData.repoCount}
-                    onChange={(e) => setFormData({ ...formData, repoCount: parseInt(e.target.value) })}
-                  >
-                    <option value="1">1</option>
-                    <option value="3">3</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
-              )}
-            </div>
+      
 
           </form>
         </div>

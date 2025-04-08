@@ -182,7 +182,6 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
       <div className="w-full">
         <div className={`${theme.cardBg} p-3 shadow-lg rounded-lg ${theme.text} ${theme.border} border`} ref={cardRef}>
           <div className="flex gap-3 w-full items-center mx-3 my-6">
-						{/* <Image src={userData?.avatar_url} alt={`${username}&apos;s avatar`} width={80} height={80} className="w-20 h-20 rounded-full" /> */}
 						{userData?.avatar_url ? (
 							<Image
 								src={userData.avatar_url}
@@ -386,6 +385,23 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 						</div>
 					)}
 
+					{formData.showTopRepos && topRepos.length > 0 && (
+						<div className="border-t border-dashed border-gray-300 pt-2 mb-2">
+							<div className="flex justify-between mb-1">
+								<span>TOP REPOSITORIES</span>
+								<span className="font-bold">{topRepos.length}</span>
+							</div>
+							{topRepos.slice(0, 3).map((repo) => (
+								<div key={repo.id} className="text-xs mb-0.5">
+									<div className="flex justify-between">
+										<span className="truncate max-w-[70%]">{repo.name}</span>
+										<span>★ {repo.stargazers_count}</span>
+									</div>
+								</div>
+							))}
+						</div>
+					)}
+					
 					{showPRs && prData?.length > 0 && (
 						<div className="border-t border-dashed border-gray-300 pt-2 mb-2">
 							<div className="flex justify-between mb-1">
@@ -407,22 +423,7 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
 					)}
 
 					
-					{formData.showTopRepos && topRepos.length > 0 && (
-						<div className="border-t border-dashed border-gray-300 pt-2 mb-2">
-							<div className="flex justify-between mb-1">
-								<span>TOP REPOSITORIES</span>
-								<span className="font-bold">{topRepos.length}</span>
-							</div>
-							{topRepos.slice(0, 3).map((repo) => (
-								<div key={repo.id} className="text-xs mb-0.5">
-									<div className="flex justify-between">
-										<span className="truncate max-w-[70%]">{repo.name}</span>
-										<span>★ {repo.stargazers_count}</span>
-									</div>
-								</div>
-							))}
-						</div>
-					)}
+				
 					
 					<div className="border-t border-dashed border-gray-300 pt-2 text-center">
 						<p className="text-xs uppercase tracking-wider mb-1">Thank you for using GitHub</p>
