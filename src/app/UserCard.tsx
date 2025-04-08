@@ -2,11 +2,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { toPng } from 'html-to-image';
-import { FaGithub, FaUserFriends, FaUserPlus, FaCodeBranch, FaStar, FaGlobe, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaUserFriends, FaUserPlus, FaCodeBranch, FaStar, FaUser } from 'react-icons/fa';
 
 interface UserCardProps {
   userData?: {
-    avatar_url: string;
+    avatar_url?: string;
     login: string;
     name: string;
     bio: string;
@@ -31,11 +31,41 @@ interface UserCardProps {
   }
 }
 
+interface PullRequest {
+	id: number;
+	html_url: string;
+	title: string;
+	state: string;
+	created_at: string;
+	user?: {
+		login: string;
+		avatar_url: string;
+	};
+	repository_url?: string;
+}
+
+interface Repository {
+	id: number;
+	name: string;
+	html_url: string;
+	description: string | null;
+	language: string | null;
+	stargazers_count: number;
+	forks_count: number;
+	created_at: string;
+	updated_at: string;
+	owner: {
+		login: string;
+		avatar_url: string;
+	};
+}
+
+
 const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const { username, isShowFollowers, isBio, showPRs } = formData;
-  const [prData, setPrData] = useState<any[]>([]);
-  const [topRepos, setTopRepos] = useState<any[]>([]);
+	const [prData, setPrData] = useState<PullRequest[]>([]);
+	const [topRepos, setTopRepos] = useState<Repository[]>([]);
   const [languages, setLanguages] = useState<{[key: string]: number}>({});
   
   const getThemeClasses = () => {
@@ -152,7 +182,20 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
       <div className="w-full">
         <div className={`${theme.cardBg} p-3 shadow-lg rounded-lg ${theme.text} ${theme.border} border`} ref={cardRef}>
           <div className="flex gap-3 w-full items-center mx-3 my-6">
-            <Image src={userData?.avatar_url!} alt={`${userData?.login}'s avatar`} width={80} height={80} className="w-20 h-20 rounded-full" />
+						{/* <Image src={userData?.avatar_url} alt={`${username}&apos;s avatar`} width={80} height={80} className="w-20 h-20 rounded-full" /> */}
+						{userData?.avatar_url ? (
+							<Image
+								src={userData.avatar_url}
+								alt={`${username}'s avatar`}
+								width={80}
+								height={80}
+								className="w-20 h-20 rounded-full"
+							/>
+						) : (
+							<div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+								<FaUser className="text-4xl" />
+							</div>
+						)}
             <div>
               <h2 className="text-xl font-bold">{username}</h2>
               <p className={theme.secondary}>@{userData?.name}</p>
@@ -506,7 +549,7 @@ const UserCard: React.FC<UserCardProps> = ({ userData, formData }) => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center">
             <FaGithub className="mr-2" />
-            <p>View user's profile in Github</p>
+						<p>View users&apos; profile in Github</p>
           </div>
         </div>
       </div>

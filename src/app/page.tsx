@@ -53,13 +53,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col font-[family-name:var(--font-geist-sans)]">
-      {/* <div className={`${isSidebarOpen ? "hidden" : "flex"} block lg:hidden`}>
+      <div className={`${isSidebarOpen ? "hidden" : "flex"} block lg:hidden`}>
         <button
           onClick={toggleSidebar}
         >
           ☰
         </button>
-      </div> */}
+      </div>
 
       <main className="w-full h-full flex-grow lg:grid lg:grid-cols-[1fr_3fr] gap-4">
         <div className={`${isSidebarOpen ? "flex" : "hidden"} m-6 lg:flex lg:flex-col lg:w-full p-6 bg-white rounded-lg shadow-lg`}>
@@ -159,7 +159,7 @@ export default function Home() {
                   id="colorTheme"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   value={formData.colorTheme}
-                  onChange={(e) => setFormData({ ...formData, colorTheme: e.target.value as any })}
+                  onChange={(e) => setFormData({ ...formData, colorTheme: e.target.value as 'default' | 'dark' })}
                 >
                   <option value="default">Default</option>
                   <option value="dark">Dark Mode</option>
@@ -199,7 +199,6 @@ export default function Home() {
                   </select>
                 </div>
               )}
-             
             </div>
 
           </form>
@@ -209,7 +208,7 @@ export default function Home() {
             <UserCard userData={userData} formData={formData} />
           </div>
           <div className="col-span-1 bg-white p-3 m-10 rounded-lg shadow-lg">
-            <CardLayout onSelectStyle={handleChangeLayout} selectedStyle={formData.layout as any} />
+            <CardLayout onSelectStyle={handleChangeLayout} selectedStyle={formData.layout as 'classic' | 'receipt' | 'terminal'} />
           </div>
         </div>
       </main>
