@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     siteName: "GitHub Cards",
     images: [
       {
-        url: "/og-image.png", // 创建一个 open graph 图片并放在 public 目录
+        url: "/og-image.png", 
         width: 2260,
         height: 1706,
         alt: "GitHub Cards Preview",
       },
       {
-        url: "/og-terminal-layout.png", // 展示终端布局的图片
+        url: "/og-terminal-layout.png",
         width: 902,
         height: 847,
         alt: "GitHub Cards Terminal Layout",
